@@ -18,7 +18,12 @@ class linear_regression:
         for i in range(self.n_epochs):
             self.coef_=self.coef_-self.alpha_*self.grad
             self.err_iter_[i]=self.sqr_err()
-            self.iteracion_+=1
+            self.iteracion_=i+1
+            if (self.cnt_print_==self.print_every_iter_) or (self.iteracion_==self.n_epochs):
+                self.cnt_print_=1
+                print("Iteracion {}, error {}".format(self.iteracion_,self.err_iter_[i]))
+            else:
+                self.cnt_print_+=1
         return self.coef_
 
     def sqr_err(self):
@@ -26,10 +31,12 @@ class linear_regression:
         y_err=(1./self.n_obs)*y_err
         return (np.diag(y_err))
 
-    def __init__(self, X, y, fit_intercept=True, n_epochs=2000, alpha=0.01):
+    def __init__(self, X, y, fit_intercept=True, n_epochs=2000, alpha=0.01, print_every_iter=100):
 
         self.n_epochs=n_epochs
         self.n_obs=y.shape[0]
+        self.print_every_iter_=print_every_iter
+        self.cnt_print_=1
 
         self.X_=np.array(X)
         self.y_=np.array(y)
