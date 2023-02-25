@@ -17,14 +17,14 @@ class linear_regression:
     def fit(self):
         for i in range(self.n_epochs):
             self.coef_=self.coef_-self.alpha_*self.grad
-            self.err_iter_.append(self.sqr_err())
+            self.err_iter_[i]=self.sqr_err()
             self.iteracion_+=1
         return self.coef_
 
     def sqr_err(self):
         y_err=np.matmul(np.transpose(self.y_pred_-self.y_), (self.y_pred_-self.y_))
         y_err=(1./self.n_obs)*y_err
-        return (y_err)
+        return (np.diag(y_err))
 
     def __init__(self, X, y, fit_intercept=True, n_epochs=2000, alpha=0.01):
 
@@ -43,7 +43,9 @@ class linear_regression:
         self.coef_=np.zeros((self.x_dim, self.y_dim))
         self.grad_=np.zeros((self.x_dim, self.y_dim))
         self.y_pred_=np.zeros((self.n_obs, self.y_dim))
-        self.err_iter_=[]
+        self.err_iter_=np.empty((self.n_epochs,self.y_dim))
+
+
 
         if fit_intercept:
             x_mat_shape=((self.n_obs,1))
