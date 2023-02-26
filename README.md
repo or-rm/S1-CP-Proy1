@@ -21,7 +21,7 @@ La clase *linear_regression* cuenta con los siguientes atributos:
 * *X_*: Atributo interno de la matriz de variables dependientes. Si el objeto es inicializado con fit_intercept=True se agrega una columna de unos.
 * *y_*: Atributo interno de la matriz de variables independientes.
 * *coef_*: Matriz $A$, de dimension $n\times k$, correspondiente a la matriz del modelo lineal $y=XA$
-* *y_pred*: Aplicacion del modelo lineal $y_pred=coef_*X_$.
+* *y_pred*: Aplicacion del modelo lineal $y\_pred=X\_*coef\_$.
 
 La clase *linear_regression* cuenta con los metodos:
 
