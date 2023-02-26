@@ -14,8 +14,19 @@ class linear_regression:
         self.grad_=grad_
         return(grad_)
 
+    def predict(self, X):
+        if self.fit_intercept:
+            x_mat_shape=((X.shape[0],1))
+            intercept_vec=np.ones(x_mat_shape)
+            return np.matmul(np.concatenate((intercept_vec, X), axis=1),self.coef_)
+        else:
+            return np.matmul(X,self.coef_)
+
+
+
     def fit(self):
         for i in range(self.n_epochs):
+            self.coef_hist_.append(self.coef_)
             self.coef_=self.coef_-self.alpha_*self.grad
             self.err_iter_[i]=self.sqr_err()
             self.iteracion_=i+1
@@ -24,7 +35,7 @@ class linear_regression:
                 print("Iteracion {}, error {}".format(self.iteracion_,self.err_iter_[i]))
             else:
                 self.cnt_print_+=1
-        return self.coef_
+        return self.coef_, self.err_iter_[self.iteracion_-1]
 
     def sqr_err(self):
         y_err=np.matmul(np.transpose(self.y_pred_-self.y_), (self.y_pred_-self.y_))
@@ -46,15 +57,17 @@ class linear_regression:
         self.x_dim=X.shape[1]
         self.y_dim=y.shape[1]
 
+        self.fit_intercept=fit_intercept
         self.iteracion_=0
         self.coef_=np.zeros((self.x_dim, self.y_dim))
+        self.coef_hist_=[]
         self.grad_=np.zeros((self.x_dim, self.y_dim))
         self.y_pred_=np.zeros((self.n_obs, self.y_dim))
         self.err_iter_=np.empty((self.n_epochs,self.y_dim))
 
 
 
-        if fit_intercept:
+        if self.fit_intercept:
             x_mat_shape=((self.n_obs,1))
             intercept_vec=np.ones(x_mat_shape)
             self.X_=np.concatenate((intercept_vec, self.X_), axis=1)
