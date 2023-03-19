@@ -2,7 +2,7 @@
 Regresion Lineal fundamentos
 
 ## Proyecto general
-El cuadernillo Proyecto.ipynb tiene una descripcion detallada de los pasos sugeridos por el proyecto.
+El cuadernillo [Proyecto.ipynb](Proyecto.ipynb) tiene una descripcion detallada de los pasos sugeridos por el proyecto.
 
 ## Regresion por gradiente en descenso
 La libreria *custom_regression.py* tiene la clase *linear_regression*.
